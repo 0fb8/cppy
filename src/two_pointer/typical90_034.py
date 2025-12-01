@@ -1,6 +1,3 @@
-from collections import defaultdict
-
-
 def main():
 
     N, K = map(int, input().split())
@@ -32,3 +29,6 @@ def main():
     print(ans)
 
     return
+
+
+from collections import defaultdict
