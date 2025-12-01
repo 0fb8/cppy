@@ -20,6 +20,7 @@ import heapq
 import itertools as it
 import math
 import more_itertools as mit
+import operator
 import random
 import sortedcontainers
 import string
