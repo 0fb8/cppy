@@ -24,6 +24,7 @@ import operator
 import random
 import sortedcontainers
 import string
+import sympy
 from typing import *
 
 from collections import deque, defaultdict, Counter, namedtuple
