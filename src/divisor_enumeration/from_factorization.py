@@ -1,6 +1,3 @@
-import itertools as it
-import operator
-from functools import reduce
 from typing import Iterator
 
 import sympy
@@ -8,17 +5,25 @@ import sympy
 
 def divisors(n: int) -> Iterator[int]:
     fi = sympy.factorint(n)
-    ps = fi.keys()
-    for es in it.product(*(range(v + 1) for v in fi.values())):
-        divisor = reduce(operator.mul, (p**e for p, e in zip(ps, es)), 1)
-        yield divisor
 
+    primes = list(fi.keys())
+    exps = list(fi.values())
+    ln = len(fi)
 
-def main():
-    N = int(input())
-    for d in divisors(N):
-        print(d)
+    def dfs(divisor, i):
+        if i == ln:
+            yield divisor
+            return
+        t = 1
+        p = primes[i]
+        for e in range(exps[i] + 1):
+            yield from dfs(divisor * t, i + 1)
+            t *= p
+
+    return dfs(1, 0)
 
 
 if __name__ == "__main__":
-    main()
+    N = int(input())
+    for d in divisors(N):
+        print(d)
