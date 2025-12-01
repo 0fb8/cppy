@@ -44,6 +44,7 @@ class D4:
     def anti_transpose(m): return [list(r) for r in zip(*m[::-1])][::-1]
 
 trn = D4.transpose
+def ins(): return input().split()
 def int1(x): return int(x) - 1
 def incr(x): return x + 1
 def decr(x): return x - 1
