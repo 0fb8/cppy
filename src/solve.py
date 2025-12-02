@@ -78,7 +78,7 @@ def popcnt(x): return x.bit_count()
 
 
 if __name__ == "__main__":
-    input = sys.stdin.readline
+    input = lambda: sys.stdin.readline().rstrip()
     sys.setrecursionlimit(1 << 25)
 
     testcase = 1
