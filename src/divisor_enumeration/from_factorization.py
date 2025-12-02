@@ -1,29 +1,23 @@
-from typing import Iterator
+from itertools import product
 
 import sympy
 
 
-def divisors(n: int) -> Iterator[int]:
+def divisors(n: int) -> list[int]:
     fi = sympy.factorint(n)
 
-    primes = list(fi.keys())
-    exps = list(fi.values())
-    ln = len(fi)
-
-    def dfs(divisor, i):
-        if i == ln:
-            yield divisor
-            return
+    pxxe_dict = dict()
+    for prime, exp in fi.items():
         t = 1
-        p = primes[i]
-        for e in range(exps[i] + 1):
-            yield from dfs(divisor * t, i + 1)
-            t *= p
+        pxxe_dict[prime] = [t := t * prime for e in range(1, exp + 1)]
 
-    return dfs(1, 0)
+    ans = [1]
+    for p, pxxe in pxxe_dict.items():
+        ans.extend([a * pe for a, pe in product(ans, pxxe)])
+    return ans
 
 
 if __name__ == "__main__":
     N = int(input())
-    for d in divisors(N):
-        print(d)
+    ans = divisors(N)
+    print("\n".join(map(str, ans)))
