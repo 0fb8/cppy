@@ -60,7 +60,7 @@ MOD1 = 10**9 + 7
 def add_mod(a, b, M=MOD): return (a + b) % M
 def mul_mod(a, b, M=MOD): return (a * b) % M
 
-def rle(A): return list((k, len(list(g))) for (k, g) in groupby(A))
+def rle(A): yield from ((k, len(list(g))) for k, g in groupby(A))
 
 DIR = ((1, 0), (0, 1), (-1, 0), (0, -1))
 DIR8 = ((1, 0), (0, 1), (1, 1), (1, -1), (-1, 0), (0, -1), (-1, -1), (-1, 1))
