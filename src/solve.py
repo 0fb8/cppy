@@ -29,7 +29,7 @@ import typing
 
 from bisect import bisect_left, bisect_right
 from collections import deque, defaultdict, Counter, namedtuple
-from functools import reduce
+from functools import partial, reduce
 from heapq import heappush as hpush, heappop as hpop
 from itertools import accumulate, groupby, pairwise
 from math import inf, isfinite, nan, isnan
