@@ -66,10 +66,7 @@ DIR = ((1, 0), (0, 1), (-1, 0), (0, -1))
 DIR8 = ((1, 0), (0, 1), (1, 1), (1, -1), (-1, 0), (0, -1), (-1, -1), (-1, 1))
 def adj_grid(H, W, h, w, dir=DIR):
     if not (0 <= h < H and 0 <= w < W): raise IndexError
-    for dh, dw in dir:
-        nh, nw = h + dh, w + dw
-        if not (0 <= nh < H and 0 <= nw < W): continue
-        yield (nh, nw)
+    yield from ((nh, nw) for dh, dw in dir if 0 <= (nh := h + dh) < H and 0 <= (nw := w + dw) < W)
 
 def l1d(p, q): return abs(p[0] - q[0]) + abs(p[1] - q[1])
 def l2d2(p, q): return (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2
