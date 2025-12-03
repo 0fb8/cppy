@@ -53,7 +53,7 @@ def ins(): return input().split()
 def int1(x): return int(x) - 1
 def incr(x): return x + 1
 def decr(x): return x - 1
-def YesNo(ans: bool) -> bool: print("Yes" if ans else "No"); return ans
+def YesNo(ans: bool, Y="Yes", N="No") -> bool: print(Y if ans else N); return ans
 
 MOD = 998244353
 MOD1 = 10**9 + 7
