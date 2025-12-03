@@ -25,15 +25,18 @@ import random
 import sortedcontainers
 import string
 import sympy
-from typing import *
+import typing
 
-from collections import deque, defaultdict, Counter, namedtuple
-from heapq import heappush as hpush, heappop as hpop
-from sortedcontainers import SortedSet, SortedList, SortedDict
-
-from itertools import accumulate, groupby, pairwise
-from more_itertools import batched, windowed
 from bisect import bisect_left, bisect_right
+from collections import deque, defaultdict, Counter, namedtuple
+from functools import reduce
+from heapq import heappush as hpush, heappop as hpop
+from itertools import accumulate, groupby, pairwise
+from math import inf, isfinite, nan, isnan
+from math import gcd, lcm, floor, ceil
+from more_itertools import batched, windowed
+from sortedcontainers import SortedSet, SortedList, SortedDict
+from typing import *
 
 class D4:
     def rotate0(m): return m
@@ -51,11 +54,6 @@ def int1(x): return int(x) - 1
 def incr(x): return x + 1
 def decr(x): return x - 1
 def YesNo(ans: bool) -> bool: print("Yes" if ans else "No"); return ans
-
-from functools import reduce
-
-from math import inf, isfinite, nan, isnan
-from math import gcd, lcm, floor, ceil
 
 MOD = 998244353
 MOD1 = 10**9 + 7
