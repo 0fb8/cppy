@@ -49,8 +49,8 @@ class D4:
 
 trn = D4.transpose
 def ins(): return input().split()
-def inint(): return map(int, input().split())
-def inint1(): return map(lambda x: int(x) - 1, input().split())
+def inint(): t = list(map(int,input().split())); return t if len(t) > 1 else t[0]
+def inint1(): t = list(map(lambda x: int(x) - 1, input().split())); return t if len(t) > 1 else t[0]
 def int1(x): return int(x) - 1
 def incr(x): return x + 1
 def decr(x): return x - 1
