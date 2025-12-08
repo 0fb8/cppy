@@ -1,10 +1,10 @@
 from itertools import product
 
-import sympy
+from sympy.ntheory import factorint
 
 
 def divisors(n: int) -> list[int]:
-    fi = sympy.factorint(n)
+    fi = factorint(n)
 
     pxxe_dict = dict()
     for prime, exp in fi.items():
