@@ -24,7 +24,6 @@ import operator
 import random
 import sortedcontainers
 import string
-import sympy
 import typing
 
 from bisect import bisect_left, bisect_right
