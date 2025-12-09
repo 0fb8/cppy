@@ -1,6 +1,6 @@
 """SparseTable/simple.py"""
 
-from typing import List, Callable, TypeVar, Generic
+from typing import List, Callable, TypeVar, Generic, Optional
 
 T = TypeVar("T")
 
@@ -19,22 +19,23 @@ class SparseTable(Generic[T]):
         Initialize the Sparse Table.
 
         :param arr: Input list of elements.
-        :param op: A binary idempotent function (e.g., min, math.gcd, operator.and_)
+        :param op: A binary idempotent function.
         """
-        if not arr:
-            raise ValueError("Input array must not be empty.")
         self.arr: List[T] = arr
         self.n: int = len(arr)
         self.op: Callable[[T, T], T] = op
 
+        if self.n == 0:
+            self.log2 = [0]
+            self.st = []
+            return
+
         # Precompute log2 lookup table for O(1) query
-        # self.log2[i] returns floor(log2(i))
         self.log2: List[int] = [0] * (self.n + 1)
         for i in range(2, self.n + 1):
             self.log2[i] = self.log2[i >> 1] + 1
 
-        # Build Sparse Table
-        # st[k][i] covers range [i, i + 2^k)
+        # Build Sparse Table: st[k][i] covers range [i, i + 2^k)
         K: int = self.log2[self.n]
         self.st: List[List[T]] = [arr[:]]  # k=0: length 1 ranges
 
@@ -47,20 +48,23 @@ class SparseTable(Generic[T]):
             ]
             self.st.append(current_row)
 
-    def query(self, l: int, r: int) -> T:
+    def query(self, l: int, r: int) -> Optional[T]:
         """
-        Returns op over the interval arr[l:r).
+        Returns op over the half-open interval arr[l:r).
+
+        Indices l and r are mathematically clipped to [0, self.n).
+        Returns None if the effective range is empty.
 
         :param l: Start index (inclusive).
         :param r: End index (exclusive).
-        :return: Result of op applied to the range.
-        :raises IndexError: If indices are out of bounds.
-        :raises ValueError: If the range is empty (l == r).
+        :return: Result of op applied to the effective range.
         """
+        if l < 0:
+            l = 0
+        if r > self.n:
+            r = self.n
         if l >= r:
-            raise ValueError(f"Invalid range: l={l}, r={r}. Range must be non-empty.")
-        if l < 0 or r > self.n:
-            raise IndexError("Query indices out of range: l={l}, r={r}, n={self.n}")
+            return None
 
         k = self.log2[r - l]
 
@@ -94,10 +98,6 @@ if __name__ == "__main__":
     assert st_gcd.query(0, len(data)) == 1  # gcd(all) -> 1
 
     # Test Error Handling
-    try:
-        st_min.query(3, 3)  # Empty range
-        assert False, "Should raise ValueError for empty range"
-    except ValueError:
-        pass
+    assert st_min.query(3, 3) is None  # Empty range
 
     print("All tests passed!")
