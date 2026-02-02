@@ -42,7 +42,7 @@ class UnionFind(Generic[T]):
         self._par[x] = x
         self._siz[x] = 1
 
-    def find(self, x: T) -> T:
+    def root(self, x: T) -> T:
         """
         Find the representative (root) of the set containing x.
         Raises KeyError if x is not found.
@@ -60,15 +60,15 @@ class UnionFind(Generic[T]):
 
         return x
 
-    def union(self, x: T, y: T) -> bool:
+    def unite(self, x: T, y: T) -> bool:
         """
         Unite the sets containing x and y.
         Returns True if a merge happened, False if they were already in the same set.
         Raises KeyError if x or y are not found.
         """
 
-        root_x = self.find(x)
-        root_y = self.find(y)
+        root_x = self.root(x)
+        root_y = self.root(y)
 
         if root_x == root_y:
             return False
@@ -85,11 +85,11 @@ class UnionFind(Generic[T]):
         Check if x and y are in the same set.
         Raises KeyError if x or y are not found.
         """
-        return self.find(x) == self.find(y)
+        return self.root(x) == self.root(y)
 
     def size(self, x: T) -> int:
         """Return the size of the set containing x."""
-        return self._siz[self.find(x)]
+        return self._siz[self.root(x)]
 
     def roots(self) -> List[T]:
         """Return a list of all roots"""
@@ -99,6 +99,6 @@ class UnionFind(Generic[T]):
         """Return all sets as a list of lists."""
         groups_dict: Dict[T, List[T]] = {}
         for x in self._par:
-            r = self.find(x)
+            r = self.root(x)
             groups_dict.setdefault(r, []).append(x)
         return list(groups_dict.values())
