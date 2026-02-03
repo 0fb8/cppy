@@ -63,7 +63,10 @@ class UnionFind(Generic[T]):
     def unite(self, x: T, y: T) -> bool:
         """
         Unite the sets containing x and y.
-        Returns True if a merge happened, False if they were already in the same set.
+        Returns:
+            (root, child):
+                - If merged: (new_root, absorbed_child)
+                - If already same: (root, None)
         Raises KeyError if x or y are not found.
         """
 
@@ -71,14 +74,14 @@ class UnionFind(Generic[T]):
         root_y = self.root(y)
 
         if root_x == root_y:
-            return False
+            return root_x, None
 
         if self._siz[root_x] < self._siz[root_y]:
             root_x, root_y = root_y, root_x
 
         self._par[root_y] = root_x
         self._siz[root_x] += self._siz[root_y]
-        return True
+        return root_x, root_y
 
     def connected(self, x: T, y: T) -> bool:
         """
