@@ -73,6 +73,14 @@ def l1d(p, q): return abs(p[0] - q[0]) + abs(p[1] - q[1])
 def l2d2(p, q): return (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2
 def linfd(p, q): return max(abs(p[0] - q[0]), abs(p[1] - q[1]))
 
+def isdivmul(d, m): return m % d == 0
+def ismuldiv(m, d): return m % d == 0
+
+def bit_test(bit, k): return bool((bit >> k) & 1)
+def bit_set(bit, k): return bit | (1 << k)
+def bit_reset(bit, k): return bit & ~(1 << k)
+def bit_flip(bit, k): return bit ^ (1 << k)
+
 def popcnt(x): return x.bit_count()
 
 # fmt:on
