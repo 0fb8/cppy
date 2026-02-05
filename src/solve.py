@@ -1,5 +1,4 @@
 def main():
-
     return
 
 
@@ -73,8 +72,13 @@ def l1d(p, q): return abs(p[0] - q[0]) + abs(p[1] - q[1])
 def l2d2(p, q): return (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2
 def linfd(p, q): return max(abs(p[0] - q[0]), abs(p[1] - q[1]))
 
-def isdivmul(d, m): return m % d == 0
-def ismuldiv(m, d): return m % d == 0
+def is_divmul(d, m): return m % d == 0
+def is_muldiv(m, d): return m % d == 0
+def is_even(n): return n & 1 == 0
+def is_odd(n): return n & 1 == 1
+def ceildiv(a, b): return -(-a // b)
+def sgn(n): return (n > 0) - (n < 0)
+def sgnabs(n): return sgn(n), abs(n)
 
 def bit_test(bit, k): return bool((bit >> k) & 1)
 def bit_set(bit, k): return bit | (1 << k)
